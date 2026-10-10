@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minute Burger — Kitchen Display</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- SHIFT LOGIN SCREEN -->
+  <div id="shiftLogin" class="screen active">
+    <div class="login-box">
+      <h1>🍔 Minute Burger</h1>
+      <h2>Mag-log in sa Shift</h2>
+      <input type="password" id="shiftPin" placeholder="Ilagay ang PIN">
+      <button onclick="loginShift()">Pumasok</button>
+      <p id="loginError" class="error"></p>
+    </div>
+  </div>
+
+  <!-- MAIN APP SCREEN -->
+  <div id="mainApp" class="screen">
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="orderEntry">📝 Order Entry</button>
+      <button class="tab-btn" data-tab="kitchen">👨‍🍳 Kitchen Display</button>
+      <button class="tab-btn" data-tab="history">📊 Tracker</button>
+    </div>
+
+    <!-- TAB 1: ORDER ENTRY -->
+    <div id="orderEntry" class="tab-content active">
+      <div class="order-layout">
+        <!-- PRODUCT SELECTION -->
+        <div class="products-section">
+          <h3>Pumili ng Produkto</h3>
+          
+          <div class="category-group">
+            <h4>🟡 Sulit</h4>
+            <div class="btn-grid" id="catSulit"></div>
+          </div>
+          
+          <div class="category-group">
+            <h4>🍗 Chicken</h4>
+            <div class="btn-grid" id="catChicken"></div>
+          </div>
+          
+          <div class="category-group">
+            <h4>🌭 Hotdog</h4>
+            <div class="btn-grid" id="catHotdog"></div>
+          </div>
+          
+          <div class="category-group">
+            <h4>🥤 Drinks</h4>
+            <div class="btn-grid" id="catDrinks"></div>
+          </div>
+          
+          <div class="category-group">
+            <h4>➕ Extras</h4>
+            <div class="btn-grid" id="catExtras"></div>
+          </div>
+          
+          <div class="category-group">
+            <h4>🔵 Bigtime Burgers</h4>
+            <div class="btn-grid" id="catBigtime"></div>
+          </div>
+        </div>
+
+        <!-- CURRENT ORDER -->
+        <div class="order-section">
+          <h3>Ticket #<span id="ticketNumber">001</span></h3>
+          
+          <div class="time-setting">
+            <label>Oras ng Paghahanda:</label>
+            <div class="time-controls">
+              <button onclick="adjustTime(-1)">−</button>
+              <span id="prepTimeDisplay">10</span>
+              <button onclick="adjustTime(1)">+</button>
+              <span>minuto</span>
+            </div>
+          </div>
+          
+          <div id="currentOrderList" class="order-list"></div>
+          
+          <div class="order-actions">
+            <button class="btn-clear" onclick="clearOrder()">Burahin Lahat</button>
+            <button class="btn-submit" onclick="submitOrder()">I-Submit →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: KITCHEN DISPLAY -->
+    <div id="kitchen" class="tab-content">
+      <div class="kitchen-layout">
+        <div class="column preparing">
+          <h2>🟡 Naghahanda</h2>
+          <div id="preparingList" class="ticket-list"></div>
+        </div>
+        
+        <div class="column ready">
+          <h2>🟢 Handa Na</h2>
+          <div id="readyList" class="ticket-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: HISTORY / TRACKER -->
+    <div id="history" class="tab-content">
+      <h3>📊 Order Tracker — <span id="currentShiftLabel"></span></h3>
+      <table id="historyTable">
+        <thead>
+          <tr>
+            <th>Ticket #</th>
+            <th>Oras Inilagay</th>
+            <th>Oras Naging Handa</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- INSTRUCTION MODAL -->
+  <div id="instructionModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>Special Instructions — <span id="modalItemName"></span></h3>
+      <div id="instructionOptions"></div>
+      <button onclick="saveInstructions()">I-Save</button>
+    </div>
+  </div>
+
+  <script src="products.js"></script>
+  <script src="instructions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
